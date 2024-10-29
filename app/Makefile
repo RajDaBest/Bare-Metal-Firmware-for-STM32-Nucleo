@@ -5,11 +5,11 @@ Q		:= @
 NULL		:= 2>/dev/null
 endif
 
-SRC_DIR        = ./app/src
-INC_DIR        = ./app/inc
-OPENCM3_DIR    = ./libopencm3
-SHARED_SRC_DIR = ./shared/src
-SHARED_INC_DIR = ./shared/inc
+SRC_DIR        = ../app/src
+INC_DIR        = ../app/inc
+OPENCM3_DIR    = ../libopencm3
+SHARED_SRC_DIR = ../shared/src
+SHARED_INC_DIR = ../shared/inc
 
 BINARY = firmware
 
@@ -17,7 +17,7 @@ BINARY = firmware
 # Basic Device Setup
 
 LIBNAME			= opencm3_stm32f4
-DEFS				+= -DSTM32F4
+# DEFS				+= -DSTM32F4 ; I ALREADY INCLUDED IT IN THE MAIN FILE
 FP_FLAGS		?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ARCH_FLAGS	= -mthumb -mcpu=cortex-m4 $(FP_FLAGS)
 
@@ -152,7 +152,7 @@ print-%:
 	@#printf "  OBJDUMP $(*).list\n"
 	$(Q)$(OBJDUMP) -S $(*).elf > $(*).list
 
-%.elf %.map: $(OBJS) $(LDSCRIPT) $(OPENCM3_DIR)/lib/lib$(LIBNAME).a Makefile
+%.elf: $(OBJS) $(LDSCRIPT) $(OPENCM3_DIR)/lib/lib$(LIBNAME).a Makefile
 	@#printf "  LD      $(*).elf\n"
 	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(*).elf
 

@@ -7,8 +7,8 @@
                 "${workspaceFolder}/libopencm3/include"
             ],
             "defines": [
-                "STM32F4",
-                "__ARM_ARCH_7EM__"
+                /* "STM32F4",
+                "__ARM_ARCH_7EM__" */
             ],
             "compilerPath": "/opt/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
             "cStandard": "c99",
