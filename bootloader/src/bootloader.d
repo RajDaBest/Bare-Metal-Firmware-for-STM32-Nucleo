@@ -23,4 +23,9 @@
  /opt/gcc-arm-none-eabi/arm-none-eabi/include/machine/stdlib.h \
  ../libopencm3/include/libopencm3/stm32/memorymap.h \
  ../libopencm3/include/libopencm3/stm32/f4/memorymap.h \
- ../libopencm3/include/libopencm3/cm3/memorymap.h
+ ../libopencm3/include/libopencm3/cm3/memorymap.h \
+ ../libopencm3/include/libopencm3/cm3/vector.h \
+ ../libopencm3/include/libopencm3/cm3/common.h \
+ ../libopencm3/include/libopencm3/cm3/nvic.h \
+ ../libopencm3/include/libopencm3/dispatch/nvic.h \
+ ../libopencm3/include/libopencm3/stm32/f4/nvic.h
