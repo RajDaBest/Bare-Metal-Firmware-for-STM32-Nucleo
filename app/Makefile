@@ -15,6 +15,7 @@ SHARED_INC_DIR = ../shared/inc
 
 BINARY = firmware
 SYSTEM = system
+TIMER = timer
 
 ###############################################################################
 # Basic Device Setup
@@ -63,6 +64,7 @@ CSTD		?= -std=c99
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
 OBJS 		+= $(CORE_DIR)/$(SYSTEM).o
+OBJS 		+= $(CORE_DIR)/$(TIMER).o
 
 ###############################################################################
 # C flags
