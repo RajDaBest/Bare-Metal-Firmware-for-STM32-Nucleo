@@ -7,6 +7,14 @@
 #include "system.h"
 #include "timer.h"
 
+#define BOOTLOADER_SIZE (0x8000U)
+
+static void vector_setup(void)
+{
+    SCB_VTOR = BOOTLOADER_SIZE; // SCB_VTOR memory-mapped register contains the address of the vector table; by default it will be 0x08000000 (start of flash memory)
+    // we reset it here to point to the vector table of the main application
+}
+
 static void gpio_setup(void)
 {
     rcc_periph_clock_enable(RCC_GPIOA);
@@ -16,6 +24,7 @@ static void gpio_setup(void)
 
 int main(void)
 {
+    vector_setup();
     system_setup();
     gpio_setup();
     timer_setup();

@@ -347,9 +347,9 @@ LOAD linker stubs
  .debug_macro   0x00002db5       0x6e ../libopencm3/lib/libopencm3_stm32f4.a(vector.o)
  .debug_macro   0x00002e23      0x22c ../libopencm3/lib/libopencm3_stm32f4.a(vector.o)
 
-.debug_line     0x00000000      0x6f0
- .debug_line    0x00000000      0x314 ../bootloader/src/bootloader.o
- .debug_line    0x00000314      0x3dc ../libopencm3/lib/libopencm3_stm32f4.a(vector.o)
+.debug_line     0x00000000      0x6ee
+ .debug_line    0x00000000      0x312 ../bootloader/src/bootloader.o
+ .debug_line    0x00000312      0x3dc ../libopencm3/lib/libopencm3_stm32f4.a(vector.o)
 
 .debug_str      0x00000000     0xaf53
  .debug_str     0x00000000     0xaf53 ../bootloader/src/bootloader.o
