@@ -1,7 +1,9 @@
 #define STM32F4 // for including versions of libopencm3 includes for my microcontroller (F4)
 // #define __ARM_ARCH_7EM__
 
-#include "common-defines.h"
+// the vector table is put automatically by the compiler due to libopencm3 with the reset vector doing some startup stuff and then calling the main function
+
+#include "common-defines_app.h"
 #include "system.h"
 #include "timer.h"
 
