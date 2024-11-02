@@ -1,4 +1,4 @@
-#include "system.h"
+#include "../../inc/core/system.h"
 
 static volatile uint64_t ticks = 0;
 

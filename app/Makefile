@@ -64,9 +64,10 @@ CSTD		?= -std=c99
 # Source files
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
-OBJS 		+= $(CORE_DIR)/$(SYSTEM).o
-OBJS 		+= $(CORE_DIR)/$(TIMER).o
+OBJS 		+= $(SHARED_SRC_DIR)/core/$(SYSTEM).o
+OBJS 		+= $(SRC_DIR)/$(TIMER).o
 OBJS		+= $(SRC_DIR)/$(BOOTLOADER).o
+OBJS		+= $(SHARED_SRC_DIR)/core/uart.o
 
 ###############################################################################
 # C flags

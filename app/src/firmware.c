@@ -4,10 +4,15 @@
 // the vector table is put automatically by the compiler due to libopencm3 with the reset vector doing some startup stuff and then calling the main function
 
 #include "common-defines_app.h"
-#include "system.h"
+#include "../../shared/inc/core/system.h"
 #include "timer.h"
+#include "../../shared/inc/core/uart.h"
 
 #define BOOTLOADER_SIZE (0x8000U)
+
+#define UART_PORT (GPIOA)
+#define RX_PIN (GPIO3)
+#define TX_PIN (GPIO2)
 
 static void vector_setup(void)
 {
@@ -18,8 +23,13 @@ static void vector_setup(void)
 static void gpio_setup(void)
 {
     rcc_periph_clock_enable(RCC_GPIOA);
+
     gpio_mode_setup(LED_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, LED_PIN);
     gpio_set_af(LED_PORT, GPIO_AF1, LED_PIN);
+
+    gpio_mode_setup(UART_PORT, GPIO_MODE_AF, GPIO_PUPD_PULLUP, RX_PIN);
+    gpio_mode_setup(UART_PORT, GPIO_MODE_AF, GPIO_PUPD_NONE, TX_PIN);
+    gpio_set_af(UART_PORT, GPIO_AF7, TX_PIN | RX_PIN);
 }
 
 int main(void)
@@ -28,6 +38,7 @@ int main(void)
     system_setup();
     gpio_setup();
     timer_setup();
+    uart_setup();
 
     uint64_t start_time = system_get_ticks();
     float duty_cycle = 0.0f;
@@ -46,6 +57,12 @@ int main(void)
 
             timer_pwm_set_duty_cycle(duty_cycle);
             start_time = system_get_ticks();
+        }
+
+        if (uart_data_available())
+        {
+            uint8_t data_recv = uart_read_byte();
+            uart_write_byte(data_recv + 1);
         }
     }
 
