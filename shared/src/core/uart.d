@@ -34,4 +34,5 @@
  ../libopencm3/include/libopencm3/stm32/pwr.h \
  ../libopencm3/include/libopencm3/stm32/f4/pwr.h \
  ../libopencm3/include/libopencm3/stm32/common/pwr_common_v1.h \
- ../libopencm3/include/libopencm3/stm32/common/rcc_common_all.h
+ ../libopencm3/include/libopencm3/stm32/common/rcc_common_all.h \
+ ../shared/src/core/../../inc/core/ring_buffer.h

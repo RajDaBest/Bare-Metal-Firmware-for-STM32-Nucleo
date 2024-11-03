@@ -8,7 +8,7 @@
 
 static ring_buffer_t ring_buffer = {0U};
 
-static volatile uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
+static uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
 
 void usart2_isr(void)
 {
@@ -17,7 +17,7 @@ void usart2_isr(void)
 
     if (received_data || overrun_occurred)
     {
-        if (ring_buffer_write(&ring_buffer, (uint8_t)usart_recv))
+        if (ring_buffer_write(&ring_buffer, (uint8_t)usart_recv(USART2)))
         {
             // handle failure
         }
@@ -57,7 +57,7 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
-    if (length > 0)
+    if (length == 0)
     {
         return 0;
     }
