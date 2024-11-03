@@ -8,6 +8,13 @@
 #include "timer.h"
 #include "../../shared/inc/core/uart.h"
 
+/*
+
+It's always nice to think of the interrupt service routines and the main program
+as kind of being two separate threads of execution, even though in reality they are not.
+
+*/
+
 #define BOOTLOADER_SIZE (0x8000U)
 
 #define UART_PORT (GPIOA)
@@ -64,6 +71,8 @@ int main(void)
             uint8_t data_recv = uart_read_byte();
             uart_write_byte(data_recv + 1);
         }
+
+        system_delay(1000);
     }
 
     // never return

@@ -29,3 +29,12 @@ void sys_tick_handler(void)
 {
     ticks++;
 }
+
+void system_delay(uint64_t milliseconds)
+{
+    uint64_t end_time = system_get_ticks() + milliseconds;
+    while (end_time > system_get_ticks())
+    {
+        // spin
+    }
+}
