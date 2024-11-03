@@ -1,10 +1,14 @@
 #include "../../inc/core/uart.h"
 #include "../../inc/core/system.h"
+#include "../../inc/core/ring_buffer.h"
 
 #define BAUD_RATE 115200
 
-static volatile uint8_t data_buffer = 0U;
-static volatile bool data_available = false;
+#define RING_BUFFER_SIZE (64)
+
+static ring_buffer_t ring_buffer = {0U};
+
+static volatile uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
 
 void usart2_isr(void)
 {
@@ -13,13 +17,16 @@ void usart2_isr(void)
 
     if (received_data || overrun_occurred)
     {
-        data_buffer = usart_recv(USART2);
-        data_available = true;
+        if (ring_buffer_write(&ring_buffer, (uint8_t)usart_recv))
+        {
+            // handle failure
+        }
     }
 }
 
 void uart_setup(void)
 {
+    ring_buffer_setup(&ring_buffer, data_buffer, RING_BUFFER_SIZE);
     rcc_periph_clock_enable(RCC_USART2);
 
     usart_set_mode(USART2, USART_MODE_TX_RX);
@@ -50,23 +57,32 @@ void uart_write_byte(uint8_t data)
 
 uint32_t uart_read(uint8_t *data, const uint32_t length)
 {
-    if (length > 0 && data_available)
+    if (length > 0)
     {
-        *data = data_buffer;
-        data_available = false;
-        return 1;
+        return 0;
     }
 
-    return 0;
+    for (uint32_t i = 0; i < length; i++)
+    {
+        if (!ring_buffer_read(&ring_buffer, &data[i]))
+        {
+            return i;
+        }
+    }
+
+    return length;
 }
 
 uint8_t uart_read_byte(void)
 {
-    data_available = false;
-    return data_buffer;
+    uint8_t byte = 0;
+
+    (void)uart_read(&byte, 1); // do this if u want to ignore the return value of a function
+
+    return byte;
 }
 
 bool uart_data_available(void)
 {
-    return data_available;
+    return (!ring_buffer_empty(&ring_buffer));
 }

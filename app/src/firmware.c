@@ -7,7 +7,6 @@
 #include "../../shared/inc/core/system.h"
 #include "timer.h"
 #include "../../shared/inc/core/uart.h"
-
 /*
 
 It's always nice to think of the interrupt service routines and the main program
